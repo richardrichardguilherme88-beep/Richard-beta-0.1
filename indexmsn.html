@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Entrar — Sistema 1998</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #008080;
+    font-family: "MS Sans Serif", Tahoma, Verdana, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+  }
+  .janela {
+    background: #c0c0c0;
+    border: 3px outset #fff;
+    box-shadow: 4px 4px 0 rgba(0,0,0,0.4);
+    width: 90%;
+    max-width: 400px;
+  }
+  .titulo-barra {
+    background: linear-gradient(90deg, #000080, #1084d0);
+    color: white;
+    padding: 3px 6px;
+    font-weight: bold;
+    font-size: 13px;
+    display: flex;
+    justify-content: space-between;
+  }
+  .btn-fechar {
+    width: 16px; height: 16px;
+    background: #c0c0c0;
+    border: 2px outset #fff;
+    font-size: 11px; font-weight: bold;
+    text-align: center; line-height: 12px;
+  }
+  .conteudo { padding: 15px; }
+  label {
+    font-size: 13px; display: block;
+    margin: 10px 0 3px 0;
+  }
+  input {
+    width: 100%; padding: 4px;
+    border: 2px inset #fff; font-size: 13px;
+  }
+  .botoes { display: flex; gap: 10px; margin-top: 20px; }
+  button {
+    flex: 1; padding: 6px;
+    background: #c0c0c0;
+    border: 2px outset #fff;
+    font-size: 13px; font-weight: bold;
+    cursor: pointer;
+  }
+  button:active { border-style: inset; }
+  .mensagem {
+    margin-top: 15px; font-size: 13px; font-weight: bold; min-height: 20px;
+  }
+  .acerto { color: #008000; }
+  .erro  { color: #800000; }
+</style>
+</head>
+<body>
+
+<div class="janela">
+  <div class="titulo-barra">
+    <span>Entrar no Sistema</span>
+    <span class="btn-fechar">×</span>
+  </div>
+  <div class="conteudo">
+    <label>Nome de usuário:</label>
+    <input type="text" id="usuario">
+
+    <label>Senha:</label>
+    <input type="password" id="senha">
+
+    <div class="botoes">
+      <button onclick="verificar()">OK</button>
+      <button onclick="limpar()">Cancelar</button>
+    </div>
+    <div class="mensagem" id="msg"></div>
+  </div>
+</div>
+
+<script>
+function verificar() {
+  const usuario = document.getElementById('usuario').value.trim();
+  const senha = document.getElementById('senha').value.trim();
+  const msg = document.getElementById('msg');
+
+  if (usuario === 'Richard' && senha === '1998') {
+    msg.innerHTML = '✅ Acesso concedido! Indo...';
+    msg.className = 'acerto';
+    // ✅ VAI AGORA — sem esperar!
+    window.location.href = 'indexmsn2.html';
+  } else {
+    msg.innerHTML = '❌ Errou! Tente novamente.';
+    msg.className = 'erro';
+  }
+}
+
+function limpar() {
+  document.getElementById('usuario').value = '';
+  document.getElementById('senha').value = '';
+  document.getElementById('msg').innerHTML = '';
+}
+</script>
+
+</body>
+</html>

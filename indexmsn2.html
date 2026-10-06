@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MSN — Conversa com Richard</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #008080;
+    font-family: "MS Sans Serif", Tahoma, Verdana, sans-serif;
+  }
+
+  .janela {
+    background: #c0c0c0;
+    border: 3px outset #fff;
+    box-shadow: 4px 4px 0 rgba(0,0,0,0.4);
+    width: 95%;
+    max-width: 500px;
+    margin: 20px auto;
+  }
+
+  .titulo-barra {
+    background: linear-gradient(90deg, #000080, #1084d0);
+    color: white;
+    padding: 3px 6px;
+    font-weight: bold;
+    font-size: 13px;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .botoes-titulo { display: flex; gap: 3px; }
+  .btn-min, .btn-max, .btn-fechar {
+    width: 16px; height: 16px;
+    background: #c0c0c0;
+    border: 2px outset #fff;
+    font-size: 10px; font-weight: bold;
+    text-align: center; line-height: 12px;
+    cursor: pointer;
+  }
+
+  .menu {
+    padding: 2px 5px;
+    border-bottom: 1px solid #888;
+    font-size: 12px;
+  }
+  .menu span { margin-right: 15px; cursor: pointer; padding: 2px 4px; }
+  .menu span:hover { background: #000080; color: white; }
+
+  .conteudo { padding: 10px; }
+
+  /* BOTÃO ADICIONAR CONTATO — igualzinho da imagem */
+  .botao-adicionar {
+    background: #c0c0c0;
+    border: 2px outset #fff;
+    padding: 10px 20px;
+    display: inline-flex;
+    align-items: center;
+    gap: 15px;
+    cursor: pointer;
+    margin-bottom: 12px;
+  }
+  .botao-adicionar:active { border-style: inset; }
+
+  .grupo-pessoas {
+    position: relative;
+    width: 65px;
+    height: 45px;
+  }
+  .pessoa {
+    position: absolute;
+    width: 35px;
+    height: 45px;
+    border-radius: 50% 50% 45% 45%;
+  }
+  .pessoa1 { background: #0052cc; left: 0; z-index: 1; }
+  .pessoa2 { background: #0080ff; left: 20px; z-index: 2; }
+  .sinal-mais {
+    font-size: 30px;
+    font-weight: bold;
+    color: #000;
+    line-height: 1;
+  }
+
+  .status {
+    margin-bottom: 10px;
+    font-size: 12px;
+  }
+  .bolinha {
+    display: inline-block;
+    width: 10px; height: 10px;
+    background: #0f0;
+    border-radius: 50%;
+    margin-right: 5px;
+  }
+
+  .area-mensagens {
+    background: white;
+    border: 2px inset #fff;
+    height: 280px;
+    overflow-y: auto;
+    padding: 8px;
+    font-size: 13px;
+    margin-bottom: 10px;
+  }
+  .mensagem { margin: 5px 0; }
+  .nome { font-weight: bold; color: #000080; }
+  .eu { color: #008000; }
+
+  .entrada { display: flex; gap: 8px; }
+  input {
+    flex: 1;
+    padding: 5px;
+    border: 2px inset #fff;
+    font-size: 13px;
+  }
+  button {
+    padding: 6px 15px;
+    background: #c0c0c0;
+    border: 2px outset #fff;
+    font-size: 13px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  button:active { border-style: inset; }
+</style>
+</head>
+<body>
+
+<div class="janela">
+  <div class="titulo-barra">
+    <span>MSN — Conversa com Richard</span>
+    <div class="botoes-titulo">
+      <span class="btn-min">_</span>
+      <span class="btn-max">□</span>
+      <span class="btn-fechar">×</span>
+    </div>
+  </div>
+
+  <div class="menu">
+    <span>Arquivo</span>
+    <span>Editar</span>
+    <span>Exibir</span>
+    <span>Ajuda</span>
+  </div>
+
+  <div class="conteudo">
+    <!-- ✅ BOTÃO IGUALZINHO DA IMAGEM -->
+    <button class="botao-adicionar" onclick="alert('Adicionar contato! ✅')">
+      <div class="grupo-pessoas">
+        <div class="pessoa pessoa1"></div>
+        <div class="pessoa pessoa2"></div>
+      </div>
+      <span class="sinal-mais">+</span>
+    </button>
+
+    <div class="status">
+      <span class="bolinha"></span>Online — Richard
+    </div>
+
+    <div class="area-mensagens" id="caixa">
+      <div class="mensagem">
+        <span class="nome">Sistema:</span> Bem-vindo ao MSN 1998! 💬
+      </div>
+    </div>
+
+    <div class="entrada">
+      <input type="text" id="texto" placeholder="Digite sua mensagem..." onkeypress="if(event.key==='Enter')enviar()">
+      <button onclick="enviar()">Enviar</button>
+    </div>
+  </div>
+</div>
+
+<script>
+function enviar() {
+  const texto = document.getElementById('texto').value.trim();
+  if (!texto) return;
+
+  const caixa = document.getElementById('caixa');
+  const minha = document.createElement('div');
+  minha.className = 'mensagem';
+  minha.innerHTML = `<span class="nome eu">Você:</span> ${texto}`;
+  caixa.appendChild(minha);
+
+  document.getElementById('texto').value = '';
+
+  setTimeout(() => {
+    const resp = document.createElement('div');
+    resp.className = 'mensagem';
+    resp.innerHTML = `<span class="nome">Richard:</span> ${resposta(texto)}`;
+    caixa.appendChild(resp);
+    caixa.scrollTop = caixa.scrollHeight;
+  }, 600);
+
+  caixa.scrollTop = caixa.scrollHeight;
+}
+
+function resposta(msg) {
+  const m = msg.toLowerCase();
+  if (m.includes('oi') || m.includes('olá')) return 'Oi! Tudo bem? 😊';
+  if (m.includes('tudo bem')) return 'Tudo ótimo! E com você? 💙';
+  if (m.includes('adeus') || m.includes('tchau')) return 'Tchau! Volte sempre! 👋';
+  if (m.includes('obrigado')) return 'De nada! 🫶';
+  return 'Entendi! 😃';
+}
+</script>
+
+</body>
+</html>
